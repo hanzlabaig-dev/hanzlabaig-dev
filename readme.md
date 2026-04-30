@@ -34,6 +34,7 @@
 - 📍 &nbsp;Based in **Karachi, Pakistan**
 - 💬 &nbsp;Ask me about **HTML, CSS, JS, Bootstrap, WordPress, GSAP**
 - 📫 &nbsp;Reach me at **hanzlabaig.real@gmail.com**
+-  🏢 &nbsp;My **[Previous Github Profile](https://github.com/wecoded-dev)**
 
 <br clear="right"/>
 
