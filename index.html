@@ -3,2111 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusAI — Powered by Puter</title>
-
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<!-- Google Material Icons -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
-<!-- Bootstrap 5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Highlight.js for code -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
-
-<!-- Puter.js -->
+<title>AI Chatbot</title>
 <script src="https://js.puter.com/v2/"></script>
-
 <style>
-  :root {
-    --bg-base: #0a0b0f;
-    --bg-surface: #111318;
-    --bg-elevated: #191c24;
-    --bg-hover: #1f2330;
-    --border: #252836;
-    --border-active: #3d4260;
-    --accent: #6c63ff;
-    --accent-soft: rgba(108,99,255,0.12);
-    --accent-glow: rgba(108,99,255,0.35);
-    --accent2: #00d4aa;
-    --accent2-soft: rgba(0,212,170,0.1);
-    --danger: #ff4d6d;
-    --warning: #ffb347;
-    --text-primary: #e8eaf2;
-    --text-secondary: #8a8fa8;
-    --text-muted: #555a73;
-    --sidebar-w: 280px;
-    --radius: 14px;
-    --radius-sm: 8px;
-    --shadow: 0 8px 32px rgba(0,0,0,0.5);
-    --transition: 0.2s cubic-bezier(.4,0,.2,1);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body { height: 100%; overflow: hidden; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg-base);
-    color: var(--text-primary);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  /* ── Scrollbar ── */
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: 99px; }
-
-  /* ── Layout ── */
-  #app {
-    display: grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    grid-template-rows: 1fr;
+    font-family: system-ui, sans-serif;
+    background: #0f1117;
+    color: #e8e8e8;
     height: 100vh;
-    overflow: hidden;
-  }
-
-  /* ── Sidebar ── */
-  #sidebar {
-    background: var(--bg-surface);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform var(--transition);
-    z-index: 100;
-  }
-
-  .sidebar-header {
-    padding: 20px 18px 14px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  .logo-icon {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    box-shadow: 0 0 16px var(--accent-glow);
-  }
-
-  .logo-icon .material-icons-round { font-size: 20px; color: #fff; }
-
-  .logo-text {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
-  }
-
-  .logo-text span { color: var(--accent); }
-
-  .new-chat-btn {
-    display: flex; align-items: center; gap: 8px;
-    width: 100%;
-    padding: 10px 14px;
-    margin-top: 12px;
-    background: var(--accent-soft);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius-sm);
-    color: var(--accent);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-
-  .new-chat-btn:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 0 18px var(--accent-glow);
-  }
-
-  /* Mode selector */
-  .mode-section {
-    padding: 14px 12px 8px;
-    flex-shrink: 0;
-  }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    padding: 0 6px;
-    margin-bottom: 6px;
-  }
-
-  .mode-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .mode-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 10px 6px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    font-size: 11px;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all var(--transition);
-    text-align: center;
-  }
-
-  .mode-btn .material-icons-round { font-size: 18px; }
-
-  .mode-btn:hover,
-  .mode-btn.active {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* History */
-  .history-section {
-    flex: 1;
-    overflow-y: auto;
-    padding: 6px 12px;
-  }
-
-  .history-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 10px;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background var(--transition);
-    border: 1px solid transparent;
-    margin-bottom: 2px;
-  }
-
-  .history-item:hover { background: var(--bg-hover); }
-  .history-item.active { background: var(--accent-soft); border-color: var(--border-active); }
-  .history-item .material-icons-round { font-size: 15px; color: var(--text-muted); flex-shrink: 0; }
-  .history-title { font-size: 13px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-  .history-item.active .history-title { color: var(--text-primary); }
-
-  /* Sidebar footer */
-  .sidebar-footer {
-    padding: 12px;
-    border-top: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-
-  .model-selector {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 10px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: border-color var(--transition);
-  }
-
-  .model-selector:hover { border-color: var(--border-active); }
-  .model-selector .material-icons-round { font-size: 16px; color: var(--accent2); }
-  .model-label { flex: 1; }
-  .model-name { font-size: 12px; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
-  .model-sub { font-size: 10px; color: var(--text-muted); }
-
-  /* ── Main area ── */
-  #main {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--bg-base);
-  }
-
-  /* Topbar */
-  #topbar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg-surface);
-    flex-shrink: 0;
-  }
-
-  #menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 4px;
-    border-radius: var(--radius-sm);
-  }
-
-  #menu-toggle:hover { color: var(--text-primary); background: var(--bg-hover); }
-  #menu-toggle .material-icons-round { font-size: 22px; }
-
-  .topbar-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    flex: 1;
-  }
-
-  .topbar-actions { display: flex; gap: 6px; }
-
-  .icon-btn {
-    display: grid; place-items: center;
-    width: 36px; height: 36px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: inherit;
-  }
-
-  .icon-btn:hover { background: var(--bg-hover); border-color: var(--border-active); color: var(--text-primary); }
-  .icon-btn .material-icons-round { font-size: 18px; }
-
-  /* ── Chat area ── */
-  #chat-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px 0;
-    scroll-behavior: smooth;
-  }
-
-  .chat-inner {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  /* Welcome screen */
-  #welcome {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 200px);
-    text-align: center;
-    padding: 40px 20px;
   }
 
-  .welcome-icon {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    border-radius: 20px;
-    display: grid; place-items: center;
-    margin-bottom: 20px;
-    box-shadow: 0 0 40px var(--accent-glow);
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 30px var(--accent-glow); }
-    50% { box-shadow: 0 0 60px var(--accent-glow), 0 0 100px rgba(108,99,255,0.15); }
-  }
-
-  .welcome-icon .material-icons-round { font-size: 36px; color: #fff; }
-
-  .welcome-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(24px, 4vw, 36px);
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, #e8eaf2 30%, #6c63ff);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-
-  .welcome-sub {
-    color: var(--text-secondary);
-    max-width: 480px;
-    margin-bottom: 32px;
-    font-size: 15px;
-  }
-
-  .quick-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 10px;
+  #chat-box {
     width: 100%;
     max-width: 680px;
-  }
-
-  .quick-card {
-    padding: 14px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    cursor: pointer;
-    text-align: left;
-    transition: all var(--transition);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .quick-card:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(108,99,255,0.15);
-  }
-
-  .quick-card-icon { font-size: 22px; margin-bottom: 8px; }
-  .quick-card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
-  .quick-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
-
-  /* ── Messages ── */
-  .msg-wrapper {
-    margin-bottom: 24px;
-    animation: fadeSlide 0.3s ease forwards;
-  }
-
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .msg-row {
+    height: 100vh;
+    max-height: 100vh;
     display: flex;
-    gap: 12px;
-    align-items: flex-start;
+    flex-direction: column;
+    background: #161820;
+    border-left: 1px solid #2a2d3a;
+    border-right: 1px solid #2a2d3a;
   }
 
-  .msg-row.user { flex-direction: row-reverse; }
+  /* Header */
+  .header {
+    padding: 16px 20px;
+    background: #1a1d27;
+    border-bottom: 1px solid #2a2d3a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #6c63ff;
+    box-shadow: 0 0 8px #6c63ff;
+  }
+
+  .header h1 { font-size: 16px; font-weight: 600; }
+  .header span { font-size: 12px; color: #888; margin-left: auto; }
+
+  /* Messages */
+  #messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #messages::-webkit-scrollbar { width: 4px; }
+  #messages::-webkit-scrollbar-thumb { background: #2a2d3a; border-radius: 4px; }
+
+  .msg { display: flex; gap: 10px; align-items: flex-start; }
+  .msg.user { flex-direction: row-reverse; }
 
   .avatar {
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    display: grid; place-items: center;
-    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+
+  .msg.ai .avatar { background: linear-gradient(135deg, #6c63ff, #00d4aa); color: #fff; }
+  .msg.user .avatar { background: #2a2d3a; color: #aaa; }
+
+  .bubble {
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: 14px;
     font-size: 14px;
-    font-weight: 700;
-    font-family: 'Syne', sans-serif;
+    line-height: 1.6;
   }
 
-  .avatar.ai {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    box-shadow: 0 0 12px var(--accent-glow);
-  }
-
-  .avatar.ai .material-icons-round { font-size: 17px; color: #fff; }
-  .avatar.user { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--accent); }
-
-  .msg-bubble {
-    max-width: min(70%, 600px);
-    padding: 12px 16px;
-    border-radius: var(--radius);
-    line-height: 1.7;
-    font-size: 14.5px;
-    position: relative;
-  }
-
-  .msg-row.ai .msg-bubble {
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
+  .msg.ai .bubble {
+    background: #1e2130;
+    border: 1px solid #2a2d3a;
     border-top-left-radius: 4px;
   }
 
-  .msg-row.user .msg-bubble {
-    background: var(--accent);
+  .msg.user .bubble {
+    background: #6c63ff;
     color: #fff;
     border-top-right-radius: 4px;
   }
 
-  .msg-bubble p { margin-bottom: 8px; }
-  .msg-bubble p:last-child { margin-bottom: 0; }
-  .msg-bubble ul, .msg-bubble ol { padding-left: 20px; margin-bottom: 8px; }
-  .msg-bubble li { margin-bottom: 4px; }
-  .msg-bubble strong { font-weight: 600; }
-  .msg-bubble em { font-style: italic; }
-  .msg-bubble h1,.msg-bubble h2,.msg-bubble h3 { font-family:'Syne',sans-serif; font-weight:700; margin:12px 0 6px; }
-  .msg-bubble h1 { font-size:20px; } .msg-bubble h2 { font-size:17px; } .msg-bubble h3 { font-size:15px; }
+  /* Typing dots */
+  .typing { display: flex; gap: 4px; align-items: center; padding: 6px 0; }
+  .typing span {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #6c63ff;
+    animation: blink 1.2s infinite;
+    display: block;
+  }
+  .typing span:nth-child(2) { animation-delay: 0.2s; }
+  .typing span:nth-child(3) { animation-delay: 0.4s; }
 
-  /* code blocks inside messages */
-  .msg-bubble pre {
-    background: #0d0f14;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    overflow-x: auto;
-    margin: 10px 0;
-    position: relative;
+  @keyframes blink {
+    0%, 60%, 100% { opacity: 0.3; transform: scale(1); }
+    30% { opacity: 1; transform: scale(1.2); }
   }
 
-  .msg-bubble code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .msg-bubble :not(pre) > code {
-    background: rgba(108,99,255,0.15);
-    color: var(--accent);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 13px;
-  }
-
-  .copy-code-btn {
-    position: absolute;
-    top: 8px; right: 8px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    font-size: 11px;
-    padding: 3px 8px;
-    cursor: pointer;
-    display: flex; align-items: center; gap: 3px;
-    transition: all var(--transition);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .copy-code-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .copy-code-btn .material-icons-round { font-size: 13px; }
-
-  /* Image result */
-  .img-result {
-    border-radius: var(--radius);
-    overflow: hidden;
-    max-width: 480px;
-    border: 1px solid var(--border);
-    margin-top: 6px;
-  }
-
-  .img-result img { width: 100%; display: block; }
-
-  .img-actions {
-    display: flex; gap: 6px;
-    padding: 8px 10px;
-    background: var(--bg-elevated);
-  }
-
-  .img-action-btn {
-    display: flex; align-items: center; gap: 5px;
-    padding: 5px 10px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .img-action-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .img-action-btn .material-icons-round { font-size: 14px; }
-
-  /* TTS audio */
-  .tts-container {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    margin-top: 6px;
+  /* Input */
+  .input-area {
+    padding: 16px;
+    border-top: 1px solid #2a2d3a;
+    background: #1a1d27;
     display: flex;
-    align-items: center;
     gap: 10px;
-    max-width: 400px;
-  }
-
-  .tts-icon { color: var(--accent2); }
-  .tts-icon .material-icons-round { font-size: 22px; }
-  .tts-container audio { flex: 1; height: 32px; }
-
-  /* Typing indicator */
-  .typing-dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    animation: bounce 1.2s infinite;
-  }
-
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes bounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-    30% { transform: translateY(-6px); opacity: 1; }
-  }
-
-  /* Msg actions */
-  .msg-actions {
-    display: flex;
-    gap: 4px;
-    margin-top: 6px;
-    padding-left: 46px;
-    opacity: 0;
-    transition: opacity var(--transition);
-  }
-
-  .msg-wrapper:hover .msg-actions { opacity: 1; }
-
-  .msg-action-btn {
-    display: flex; align-items: center; gap: 4px;
-    padding: 3px 8px;
-    background: none;
-    border: 1px solid transparent;
-    border-radius: 6px;
-    color: var(--text-muted);
-    font-size: 11px;
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .msg-action-btn:hover { background: var(--bg-elevated); border-color: var(--border); color: var(--text-secondary); }
-  .msg-action-btn .material-icons-round { font-size: 13px; }
-
-  /* ── Input bar ── */
-  #input-area {
-    padding: 16px 20px 20px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-surface);
     flex-shrink: 0;
   }
 
-  .input-inner {
-    max-width: 820px;
-    margin: 0 auto;
-  }
-
-  /* Active mode badge */
-  .active-mode-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    background: var(--accent-soft);
-    border: 1px solid var(--accent);
-    border-radius: 99px;
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-
-  .active-mode-badge .material-icons-round { font-size: 13px; }
-
-  .input-box {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-    background: var(--bg-elevated);
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    padding: 10px 10px 10px 16px;
-    transition: border-color var(--transition), box-shadow var(--transition);
-  }
-
-  .input-box:focus-within {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-soft);
-  }
-
-  #user-input {
+  textarea {
     flex: 1;
-    background: none;
-    border: none;
-    outline: none;
-    color: var(--text-primary);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    resize: none;
-    max-height: 180px;
-    min-height: 24px;
-  }
-
-  #user-input::placeholder { color: var(--text-muted); }
-
-  .input-actions {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .inp-icon-btn {
-    display: grid; place-items: center;
-    width: 34px; height: 34px;
-    background: none;
-    border: none;
+    background: #0f1117;
+    border: 1px solid #2a2d3a;
     border-radius: 10px;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-
-  .inp-icon-btn:hover { background: var(--bg-hover); color: var(--text-secondary); }
-  .inp-icon-btn .material-icons-round { font-size: 19px; }
-
-  #send-btn {
-    display: grid; place-items: center;
-    width: 36px; height: 36px;
-    background: var(--accent);
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    transition: all var(--transition);
-    flex-shrink: 0;
-  }
-
-  #send-btn:hover:not(:disabled) {
-    background: #7c75ff;
-    box-shadow: 0 0 16px var(--accent-glow);
-  }
-
-  #send-btn:disabled { opacity: 0.4; cursor: default; }
-  #send-btn .material-icons-round { font-size: 19px; }
-
-  .input-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 8px;
-    padding: 0 2px;
-  }
-
-  .input-hint { font-size: 11px; color: var(--text-muted); }
-  .input-hint kbd {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* Options toolbar */
-  .options-bar {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-
-  .opt-chip {
-    display: flex; align-items: center; gap: 4px;
-    padding: 5px 10px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 99px;
-    color: var(--text-secondary);
-    font-size: 12px;
-    cursor: pointer;
-    transition: all var(--transition);
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .opt-chip:hover, .opt-chip.active {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .opt-chip .material-icons-round { font-size: 14px; }
-
-  /* Image mode extra input */
-  .img-mode-opts {
-    display: none;
-    gap: 8px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-
-  .img-mode-opts.show { display: flex; }
-
-  .img-opt-select {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    font-size: 12px;
-    padding: 5px 10px;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    outline: none;
-  }
-
-  .img-opt-select:focus { border-color: var(--accent); }
-
-  /* TTS opts */
-  .tts-opts-bar {
-    display: none;
-    gap: 8px;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-
-  .tts-opts-bar.show { display: flex; }
-
-  /* Model panel */
-  #model-panel {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 999;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  #model-panel.show { display: flex; }
-
-  .model-panel-inner {
-    background: var(--bg-surface);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px;
-    width: 100%;
-    max-width: 560px;
-    max-height: 80vh;
-    overflow-y: auto;
-    box-shadow: var(--shadow);
-  }
-
-  .panel-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .panel-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .close-panel {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    cursor: pointer;
-    width: 32px; height: 32px;
-    display: grid; place-items: center;
-  }
-
-  .close-panel:hover { border-color: var(--danger); color: var(--danger); }
-  .close-panel .material-icons-round { font-size: 17px; }
-
-  .model-cat { margin-bottom: 16px; }
-  .model-cat-label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-
-  .model-list { display: flex; flex-direction: column; gap: 4px; }
-
-  .model-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 12px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-
-  .model-item:hover { border-color: var(--border-active); }
-  .model-item.selected { border-color: var(--accent); background: var(--accent-soft); }
-
-  .model-item-icon { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0; }
-  .model-item-icon .material-icons-round { font-size: 15px; }
-  .model-item-name { font-size: 13px; font-weight: 600; flex: 1; }
-  .model-item-desc { font-size: 11px; color: var(--text-muted); }
-  .model-check { color: var(--accent); display: none; }
-  .model-check .material-icons-round { font-size: 18px; }
-  .model-item.selected .model-check { display: block; }
-
-  /* Toast */
-  #toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(60px);
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-size: 13px;
-    color: var(--text-primary);
-    box-shadow: var(--shadow);
-    z-index: 9999;
-    transition: transform 0.3s ease;
-    display: flex; align-items: center; gap: 6px;
-    pointer-events: none;
-  }
-
-  #toast.show { transform: translateX(-50%) translateY(0); }
-  #toast .material-icons-round { font-size: 16px; color: var(--accent2); }
-
-  /* Image Analyze drop zone */
-  #img-drop-zone {
-    display: none;
-    border: 2px dashed var(--border-active);
-    border-radius: var(--radius);
-    padding: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all var(--transition);
-    color: var(--text-muted);
-    font-size: 13px;
-  }
-
-  #img-drop-zone.show { display: block; }
-  #img-drop-zone:hover, #img-drop-zone.drag-over { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
-  #img-drop-zone .material-icons-round { font-size: 28px; display: block; margin-bottom: 6px; }
-  #img-drop-zone input { display: none; }
-
-  #img-preview-strip {
-    display: none;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-  }
-
-  #img-preview-strip.show { display: flex; }
-
-  .img-preview-thumb {
-    position: relative;
-    width: 64px; height: 64px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .img-preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-  .remove-img {
-    position: absolute;
-    top: 2px; right: 2px;
-    background: rgba(0,0,0,0.7);
-    border: none;
-    border-radius: 50%;
-    color: #fff;
-    width: 18px; height: 18px;
-    display: grid; place-items: center;
-    cursor: pointer;
-    font-size: 11px;
-  }
-
-  /* Sidebar overlay for mobile */
-  #sidebar-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 99;
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
-    :root { --sidebar-w: 280px; }
-
-    #app { grid-template-columns: 1fr; }
-
-    #sidebar {
-      position: fixed;
-      left: 0; top: 0; bottom: 0;
-      width: var(--sidebar-w);
-      transform: translateX(-100%);
-    }
-
-    #sidebar.open { transform: translateX(0); }
-    #sidebar-overlay { display: block; opacity: 0; pointer-events: none; transition: opacity var(--transition); }
-    #sidebar-overlay.show { opacity: 1; pointer-events: all; }
-
-    #menu-toggle { display: grid; }
-
-    .msg-bubble { max-width: 85%; }
-    .quick-grid { grid-template-columns: 1fr 1fr; }
-
-    #input-area { padding: 12px 14px 16px; }
-    .chat-inner { padding: 0 14px; }
-  }
-
-  @media (max-width: 480px) {
-    .quick-grid { grid-template-columns: 1fr; }
-    .msg-bubble { max-width: 92%; font-size: 14px; }
-    .topbar-title { font-size: 14px; }
-  }
-
-  /* Divider */
-  .chat-divider {
-    display: flex; align-items: center; gap: 10px;
-    color: var(--text-muted);
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    margin: 8px 0 20px;
-  }
-
-  .chat-divider::before, .chat-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* Badge pill */
-  .badge-pill {
-    display: inline-flex; align-items: center; gap: 3px;
-    padding: 2px 7px;
-    background: var(--accent-soft);
-    border-radius: 99px;
-    font-size: 10px;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  /* Spinner */
-  .spinner {
-    width: 18px; height: 18px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: inline-block;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* Error bubble */
-  .error-bubble {
-    background: rgba(255,77,109,0.1);
-    border: 1px solid rgba(255,77,109,0.3);
-    color: var(--danger);
-    border-radius: var(--radius);
+    color: #e8e8e8;
+    font-size: 14px;
+    font-family: inherit;
     padding: 10px 14px;
-    font-size: 13px;
-    display: flex; align-items: center; gap: 8px;
+    resize: none;
+    outline: none;
+    min-height: 44px;
+    max-height: 120px;
   }
 
-  .error-bubble .material-icons-round { font-size: 17px; }
+  textarea:focus { border-color: #6c63ff; }
+  textarea::placeholder { color: #555; }
 
-  /* Highlight.js overrides */
-  .hljs { background: transparent !important; padding: 0 !important; }
-
-  /* Web search result card */
-  .search-result-card {
-    background: var(--bg-elevated);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    margin-top: 4px;
-    font-size: 12px;
-    color: var(--text-secondary);
+  button {
+    width: 44px; height: 44px;
+    background: #6c63ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
   }
-  .search-result-card .sr-title { font-weight: 600; color: var(--text-primary); margin-bottom: 3px; font-size: 13px; }
+
+  button:hover { background: #7c75ff; }
+  button:disabled { background: #333; cursor: default; }
 </style>
 </head>
 <body>
 
-<div id="app">
+<div id="chat-box">
+  <div class="header">
+    <div class="dot"></div>
+    <h1>AI Chatbot</h1>
+    <span>Powered by Puter.js</span>
+  </div>
 
-  <!-- ══════════════ SIDEBAR ══════════════ -->
-  <aside id="sidebar">
-    <div class="sidebar-header">
-      <div class="logo">
-        <div class="logo-icon">
-          <span class="material-icons-round">auto_awesome</span>
-        </div>
-        <span class="logo-text">Nexus<span>AI</span></span>
-      </div>
-      <button class="new-chat-btn" id="new-chat-btn">
-        <span class="material-icons-round" style="font-size:17px">add</span>
-        New Chat
-      </button>
+  <div id="messages">
+    <div class="msg ai">
+      <div class="avatar">AI</div>
+      <div class="bubble">Hi! I'm your AI assistant. Ask me anything! 👋</div>
     </div>
+  </div>
 
-    <div class="mode-section">
-      <div class="section-label">Capabilities</div>
-      <div class="mode-grid">
-        <button class="mode-btn active" data-mode="chat">
-          <span class="material-icons-round">chat_bubble_outline</span>
-          Chat
-        </button>
-        <button class="mode-btn" data-mode="image">
-          <span class="material-icons-round">image</span>
-          Image Gen
-        </button>
-        <button class="mode-btn" data-mode="analyze">
-          <span class="material-icons-round">image_search</span>
-          Analyze
-        </button>
-        <button class="mode-btn" data-mode="search">
-          <span class="material-icons-round">travel_explore</span>
-          Web Search
-        </button>
-        <button class="mode-btn" data-mode="code">
-          <span class="material-icons-round">code</span>
-          Code
-        </button>
-        <button class="mode-btn" data-mode="tts">
-          <span class="material-icons-round">record_voice_over</span>
-          Text→Speech
-        </button>
-      </div>
-    </div>
-
-    <div class="history-section">
-      <div class="section-label" style="padding: 8px 6px 6px;">Recent Chats</div>
-      <div id="history-list">
-        <!-- populated by JS -->
-      </div>
-    </div>
-
-    <div class="sidebar-footer">
-      <div class="model-selector" id="open-model-panel">
-        <span class="material-icons-round">memory</span>
-        <div class="model-label">
-          <div class="model-name" id="current-model-display">GPT-5.4-Nano</div>
-          <div class="model-sub">Click to change model</div>
-        </div>
-        <span class="material-icons-round" style="font-size:16px;color:var(--text-muted)">expand_less</span>
-      </div>
-    </div>
-  </aside>
-
-  <!-- ══════════════ MAIN ══════════════ -->
-  <main id="main">
-
-    <!-- Topbar -->
-    <div id="topbar">
-      <button id="menu-toggle" aria-label="Toggle sidebar">
-        <span class="material-icons-round">menu</span>
-      </button>
-      <div class="topbar-title" id="topbar-title">New Chat</div>
-      <div class="topbar-actions">
-        <button class="icon-btn" id="clear-chat-btn" title="Clear chat">
-          <span class="material-icons-round">delete_sweep</span>
-        </button>
-        <button class="icon-btn" id="export-btn" title="Export chat">
-          <span class="material-icons-round">download</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Chat area -->
-    <div id="chat-area">
-      <div class="chat-inner" id="chat-inner">
-
-        <!-- Welcome screen -->
-        <div id="welcome">
-          <div class="welcome-icon">
-            <span class="material-icons-round">auto_awesome</span>
-          </div>
-          <h1 class="welcome-title">What can I help you with?</h1>
-          <p class="welcome-sub">Powered by Puter.js — free, unlimited access to OpenAI's latest models. Chat, generate images, analyze visuals, search the web, write code, and more.</p>
-          <div class="quick-grid" id="quick-grid">
-            <div class="quick-card" data-prompt="Write a professional email to a client asking for project feedback" data-mode="chat">
-              <div class="quick-card-icon">✍️</div>
-              <div class="quick-card-title">Write for me</div>
-              <div class="quick-card-desc">Emails, essays, copy and more</div>
-            </div>
-            <div class="quick-card" data-prompt="Generate a stunning futuristic city skyline at sunset" data-mode="image">
-              <div class="quick-card-icon">🎨</div>
-              <div class="quick-card-title">Generate Image</div>
-              <div class="quick-card-desc">Turn ideas into visuals</div>
-            </div>
-            <div class="quick-card" data-prompt="What are the latest AI breakthroughs in 2025?" data-mode="search">
-              <div class="quick-card-icon">🔍</div>
-              <div class="quick-card-title">Search the Web</div>
-              <div class="quick-card-desc">Live internet search results</div>
-            </div>
-            <div class="quick-card" data-prompt="Write a Python function to scrape a webpage and extract all links" data-mode="code">
-              <div class="quick-card-icon">💻</div>
-              <div class="quick-card-title">Write Code</div>
-              <div class="quick-card-desc">Any language, any task</div>
-            </div>
-            <div class="quick-card" data-prompt="Summarize the key differences between quantum and classical computing" data-mode="chat">
-              <div class="quick-card-icon">📚</div>
-              <div class="quick-card-title">Explain a Topic</div>
-              <div class="quick-card-desc">Learn anything clearly</div>
-            </div>
-            <div class="quick-card" data-prompt="Hello NexusAI! Convert this to speech." data-mode="tts">
-              <div class="quick-card-icon">🔊</div>
-              <div class="quick-card-title">Text to Speech</div>
-              <div class="quick-card-desc">Hear the AI's voice</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Input area -->
-    <div id="input-area">
-      <div class="input-inner">
-
-        <!-- Active mode badge -->
-        <div class="active-mode-badge" id="mode-badge">
-          <span class="material-icons-round">chat_bubble_outline</span>
-          <span id="mode-badge-text">Chat Mode</span>
-        </div>
-
-        <!-- Options bar -->
-        <div class="options-bar" id="options-bar">
-          <button class="opt-chip" id="opt-stream" title="Stream response">
-            <span class="material-icons-round">stream</span>
-            Stream
-          </button>
-          <button class="opt-chip" id="opt-websearch" title="Enable web search">
-            <span class="material-icons-round">travel_explore</span>
-            Web Search
-          </button>
-          <button class="opt-chip" id="opt-voice" title="Read response aloud">
-            <span class="material-icons-round">volume_up</span>
-            Auto-Speak
-          </button>
-        </div>
-
-        <!-- Image mode options -->
-        <div class="img-mode-opts" id="img-mode-opts">
-          <select class="img-opt-select" id="img-model-select">
-            <option value="gpt-image-2">GPT Image 2 (Best)</option>
-            <option value="gpt-image-1.5">GPT Image 1.5</option>
-            <option value="gpt-image-1-mini">GPT Image Mini</option>
-            <option value="dall-e-3">DALL·E 3</option>
-            <option value="dall-e-2">DALL·E 2</option>
-          </select>
-          <select class="img-opt-select" id="img-size-select">
-            <option value="">Default size</option>
-            <option value="1024x1024">1024×1024</option>
-            <option value="1792x1024">1792×1024 (Wide)</option>
-            <option value="1024x1792">1024×1792 (Tall)</option>
-          </select>
-        </div>
-
-        <!-- TTS options -->
-        <div class="tts-opts-bar" id="tts-opts-bar">
-          <select class="img-opt-select" id="tts-voice-select">
-            <option value="alloy">Alloy</option>
-            <option value="echo">Echo</option>
-            <option value="fable">Fable</option>
-            <option value="onyx">Onyx</option>
-            <option value="nova">Nova</option>
-            <option value="shimmer">Shimmer</option>
-          </select>
-          <select class="img-opt-select" id="tts-model-select">
-            <option value="gpt-4o-mini-tts">GPT-4o Mini TTS</option>
-            <option value="tts-1-hd">TTS-1 HD</option>
-            <option value="tts-1">TTS-1</option>
-          </select>
-        </div>
-
-        <!-- Image drop zone (analyze mode) -->
-        <div id="img-drop-zone">
-          <label for="img-file-input" style="cursor:pointer;">
-            <span class="material-icons-round">add_photo_alternate</span>
-            Drop or click to attach image(s) for analysis
-            <input type="file" id="img-file-input" accept="image/*" multiple>
-          </label>
-        </div>
-
-        <!-- Image preview strip -->
-        <div id="img-preview-strip"></div>
-
-        <!-- Input box -->
-        <div class="input-box">
-          <textarea
-            id="user-input"
-            rows="1"
-            placeholder="Ask anything…"
-          ></textarea>
-          <div class="input-actions">
-            <button class="inp-icon-btn" id="attach-img-btn" title="Attach image" style="display:none">
-              <span class="material-icons-round">attach_file</span>
-            </button>
-            <button class="inp-icon-btn" id="mic-btn" title="Voice input">
-              <span class="material-icons-round">mic</span>
-            </button>
-            <button id="send-btn" title="Send (Enter)">
-              <span class="material-icons-round">send</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="input-footer">
-          <span class="input-hint"><kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line</span>
-          <span class="input-hint" id="char-count" style="opacity:0">0</span>
-        </div>
-
-      </div>
-    </div>
-  </main>
-
-</div>
-
-<!-- ══════════════ SIDEBAR OVERLAY ══════════════ -->
-<div id="sidebar-overlay"></div>
-
-<!-- ══════════════ MODEL PANEL ══════════════ -->
-<div id="model-panel">
-  <div class="model-panel-inner">
-    <div class="panel-header">
-      <div class="panel-title">Choose Model</div>
-      <button class="close-panel" id="close-model-panel">
-        <span class="material-icons-round">close</span>
-      </button>
-    </div>
-
-    <div class="model-cat">
-      <div class="model-cat-label">🔥 Latest GPT-5</div>
-      <div class="model-list" id="model-list-gpt5"></div>
-    </div>
-
-    <div class="model-cat">
-      <div class="model-cat-label">⚡ GPT-4 & Mini</div>
-      <div class="model-list" id="model-list-gpt4"></div>
-    </div>
-
-    <div class="model-cat">
-      <div class="model-cat-label">🧠 Reasoning Models</div>
-      <div class="model-list" id="model-list-reasoning"></div>
-    </div>
-
-    <div class="model-cat">
-      <div class="model-cat-label">💻 Codex</div>
-      <div class="model-list" id="model-list-codex"></div>
-    </div>
-
-    <div class="model-cat">
-      <div class="model-cat-label">🌐 OSS Models</div>
-      <div class="model-list" id="model-list-oss"></div>
-    </div>
+  <div class="input-area">
+    <textarea id="input" placeholder="Type a message…" rows="1"></textarea>
+    <button id="send-btn" title="Send">➤</button>
   </div>
 </div>
 
-<!-- ══════════════ TOAST ══════════════ -->
-<div id="toast">
-  <span class="material-icons-round">check_circle</span>
-  <span id="toast-text">Done!</span>
-</div>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
-
 <script>
-/* ═══════════════════════════════════════════
-   NexusAI — Powered by Puter.js
-   Full-featured, single-file AI chatbot
-═══════════════════════════════════════════ */
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('send-btn');
+  const messages = document.getElementById('messages');
 
-// ── State ──────────────────────────────────
-const state = {
-  mode: 'chat',
-  model: 'gpt-5.4-nano',
-  stream: true,
-  webSearch: false,
-  autoSpeak: false,
-  busy: false,
-  attachedImages: [],   // { dataUrl, base64, mimeType }
-  history: [],          // [{role, content}]
-  sessions: [],
-  currentSession: null,
-};
-
-// ── Model catalog ──────────────────────────
-const MODELS = {
-  gpt5: [
-    { id: 'gpt-5.5', name: 'GPT-5.5', desc: 'Most capable', icon: 'auto_awesome', color: '#6c63ff' },
-    { id: 'gpt-5.5-pro', name: 'GPT-5.5 Pro', desc: 'Pro tier flagship', icon: 'workspace_premium', color: '#6c63ff' },
-    { id: 'gpt-5.4', name: 'GPT-5.4', desc: 'Balanced speed + power', icon: 'bolt', color: '#00d4aa' },
-    { id: 'gpt-5.4-nano', name: 'GPT-5.4 Nano', desc: 'Fast & efficient (default)', icon: 'flash_on', color: '#ffb347' },
-    { id: 'gpt-5.4-mini', name: 'GPT-5.4 Mini', desc: 'Lightweight', icon: 'speed', color: '#ffb347' },
-    { id: 'gpt-5.3-chat', name: 'GPT-5.3 Chat', desc: 'Conversational', icon: 'chat', color: '#00d4aa' },
-    { id: 'gpt-5.2-chat', name: 'GPT-5.2 Chat', desc: 'Reliable chat', icon: 'forum', color: '#8a8fa8' },
-    { id: 'gpt-5', name: 'GPT-5', desc: 'Original GPT-5', icon: 'star', color: '#6c63ff' },
-    { id: 'gpt-5-mini', name: 'GPT-5 Mini', desc: 'Compact GPT-5', icon: 'star_half', color: '#6c63ff' },
-  ],
-  gpt4: [
-    { id: 'gpt-4.1', name: 'GPT-4.1', desc: 'Latest GPT-4 series', icon: 'psychology', color: '#00d4aa' },
-    { id: 'gpt-4.1-mini', name: 'GPT-4.1 Mini', desc: 'Fast GPT-4.1', icon: 'speed', color: '#00d4aa' },
-    { id: 'gpt-4.1-nano', name: 'GPT-4.1 Nano', desc: 'Ultra fast', icon: 'flash_on', color: '#00d4aa' },
-    { id: 'gpt-4o', name: 'GPT-4o', desc: 'Omni model', icon: 'visibility', color: '#ffb347' },
-    { id: 'gpt-4o-mini', name: 'GPT-4o Mini', desc: 'Fast omni', icon: 'electric_bolt', color: '#ffb347' },
-  ],
-  reasoning: [
-    { id: 'o1', name: 'o1', desc: 'Deep reasoning', icon: 'psychology_alt', color: '#ff4d6d' },
-    { id: 'o1-mini', name: 'o1 Mini', desc: 'Fast reasoning', icon: 'help', color: '#ff4d6d' },
-    { id: 'o1-pro', name: 'o1 Pro', desc: 'Maximum reasoning', icon: 'military_tech', color: '#ff4d6d' },
-    { id: 'o3', name: 'o3', desc: 'Next-gen reasoning', icon: 'biotech', color: '#6c63ff' },
-    { id: 'o3-mini', name: 'o3 Mini', desc: 'Efficient reasoning', icon: 'science', color: '#6c63ff' },
-    { id: 'o4-mini', name: 'o4 Mini', desc: 'Latest mini reasoning', icon: 'explore', color: '#6c63ff' },
-  ],
-  codex: [
-    { id: 'openai/gpt-5.3-codex', name: 'GPT-5.3 Codex', desc: 'Best for code', icon: 'terminal', color: '#00d4aa' },
-    { id: 'openai/gpt-5.2-codex', name: 'GPT-5.2 Codex', desc: 'Reliable codex', icon: 'code', color: '#00d4aa' },
-    { id: 'openai/gpt-5.1-codex', name: 'GPT-5.1 Codex', desc: 'Previous codex', icon: 'developer_mode', color: '#8a8fa8' },
-  ],
-  oss: [
-    { id: 'openai/gpt-oss-120b', name: 'GPT-OSS 120B', desc: 'Open source, 120B params', icon: 'hub', color: '#ffb347' },
-  ],
-};
-
-// ── Mode config ────────────────────────────
-const MODE_CONFIG = {
-  chat:    { icon: 'chat_bubble_outline', label: 'Chat Mode',         placeholder: 'Ask anything…' },
-  image:   { icon: 'image',              label: 'Image Generation',   placeholder: 'Describe the image you want…' },
-  analyze: { icon: 'image_search',       label: 'Image Analysis',     placeholder: 'Ask about the attached image(s)…' },
-  search:  { icon: 'travel_explore',     label: 'Web Search Mode',    placeholder: 'Search the web for…' },
-  code:    { icon: 'code',               label: 'Code Mode',          placeholder: 'Describe what you want to code…' },
-  tts:     { icon: 'record_voice_over',  label: 'Text to Speech',     placeholder: 'Enter text to convert to speech…' },
-};
-
-// ── DOM shortcuts ──────────────────────────
-const $ = id => document.getElementById(id);
-const qs = sel => document.querySelector(sel);
-
-// ── Init ───────────────────────────────────
-$(document).ready(function() {
-  buildModelPanel();
-  bindEvents();
-  loadSessions();
-  setMode('chat');
-  autoResizeTextarea();
-});
-
-// ── Build model panel ──────────────────────
-function buildModelPanel() {
-  Object.entries(MODELS).forEach(([cat, models]) => {
-    const list = $(`model-list-${cat}`);
-    if (!list) return;
-    models.forEach(m => {
-      const el = document.createElement('div');
-      el.className = 'model-item' + (m.id === state.model ? ' selected' : '');
-      el.dataset.model = m.id;
-      el.innerHTML = `
-        <div class="model-item-icon" style="background:${m.color}22">
-          <span class="material-icons-round" style="color:${m.color}">${m.icon}</span>
-        </div>
-        <div style="flex:1">
-          <div class="model-item-name">${m.name}</div>
-          <div class="model-item-desc">${m.desc}</div>
-        </div>
-        <div class="model-check"><span class="material-icons-round">check_circle</span></div>
-      `;
-      el.addEventListener('click', () => selectModel(m.id, m.name));
-      list.appendChild(el);
-    });
-  });
-}
-
-function selectModel(id, name) {
-  state.model = id;
-  $('current-model-display').textContent = name;
-  document.querySelectorAll('.model-item').forEach(el => {
-    el.classList.toggle('selected', el.dataset.model === id);
-  });
-  closeModelPanel();
-  showToast(`Model: ${name}`);
-}
-
-// ── Events ─────────────────────────────────
-function bindEvents() {
-
-  // Send
-  $('send-btn').addEventListener('click', handleSend);
-  $('user-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
+  // Auto-resize textarea
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   });
 
-  // Textarea auto-resize
-  $('user-input').addEventListener('input', () => {
-    autoResizeTextarea();
-    const len = $('user-input').value.length;
-    $('char-count').textContent = len;
-    $('char-count').style.opacity = len > 0 ? '1' : '0';
+  // Send on Enter (Shift+Enter for new line)
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
   });
 
-  // Mode buttons
-  document.querySelectorAll('.mode-btn').forEach(btn => {
-    btn.addEventListener('click', () => setMode(btn.dataset.mode));
-  });
+  sendBtn.addEventListener('click', send);
 
-  // Quick cards
-  document.querySelectorAll('.quick-card').forEach(card => {
-    card.addEventListener('click', () => {
-      setMode(card.dataset.mode);
-      $('user-input').value = card.dataset.prompt;
-      autoResizeTextarea();
-      handleSend();
-    });
-  });
+  async function send() {
+    const text = input.value.trim();
+    if (!text) return;
 
-  // Options chips
-  $('opt-stream').addEventListener('click', () => toggle('stream', 'opt-stream', 'Streaming'));
-  $('opt-websearch').addEventListener('click', () => toggle('webSearch', 'opt-websearch', 'Web Search'));
-  $('opt-voice').addEventListener('click', () => toggle('autoSpeak', 'opt-voice', 'Auto-Speak'));
+    // Show user message
+    addMsg('user', text);
+    input.value = '';
+    input.style.height = 'auto';
+    sendBtn.disabled = true;
 
-  // Model panel
-  $('open-model-panel').addEventListener('click', () => $('model-panel').classList.add('show'));
-  $('close-model-panel').addEventListener('click', closeModelPanel);
-  $('model-panel').addEventListener('click', e => { if (e.target === $('model-panel')) closeModelPanel(); });
+    // Show typing indicator
+    const typingEl = addTyping();
 
-  // Sidebar
-  $('menu-toggle').addEventListener('click', toggleSidebar);
-  $('sidebar-overlay').addEventListener('click', closeSidebar);
+    try {
+      // Call Puter AI — streaming
+      const response = await puter.ai.chat(text, { model: 'gpt-4o-mini', stream: true });
 
-  // New chat
-  $('new-chat-btn').addEventListener('click', newChat);
+      typingEl.remove();
+      const aiEl = addMsg('ai', '');
 
-  // Clear
-  $('clear-chat-btn').addEventListener('click', clearChat);
-
-  // Export
-  $('export-btn').addEventListener('click', exportChat);
-
-  // File input
-  $('img-file-input').addEventListener('change', handleImageFiles);
-
-  // Drag & drop
-  $('img-drop-zone').addEventListener('dragover', e => { e.preventDefault(); e.currentTarget.classList.add('drag-over'); });
-  $('img-drop-zone').addEventListener('dragleave', e => e.currentTarget.classList.remove('drag-over'));
-  $('img-drop-zone').addEventListener('drop', e => { e.preventDefault(); e.currentTarget.classList.remove('drag-over'); handleImageFiles({ target: { files: e.dataTransfer.files } }); });
-
-  // Mic (speech to text)
-  $('mic-btn').addEventListener('click', handleMicInput);
-
-  // Attach img btn
-  $('attach-img-btn').addEventListener('click', () => $('img-file-input').click());
-}
-
-// ── Toggle chip state ──────────────────────
-function toggle(key, elId, label) {
-  state[key] = !state[key];
-  $(elId).classList.toggle('active', state[key]);
-  showToast(`${label}: ${state[key] ? 'ON' : 'OFF'}`);
-}
-
-// ── Set mode ───────────────────────────────
-function setMode(mode) {
-  state.mode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-  const cfg = MODE_CONFIG[mode];
-  $('mode-badge').querySelector('.material-icons-round').textContent = cfg.icon;
-  $('mode-badge-text').textContent = cfg.label;
-  $('user-input').placeholder = cfg.placeholder;
-  $('topbar-title').textContent = cfg.label;
-
-  // Show/hide mode-specific UI
-  $('img-mode-opts').classList.toggle('show', mode === 'image');
-  $('tts-opts-bar').classList.toggle('show', mode === 'tts');
-  $('img-drop-zone').classList.toggle('show', mode === 'analyze');
-  $('attach-img-btn').style.display = mode === 'analyze' ? 'grid' : 'none';
-
-  // Web search auto-enable for search mode
-  if (mode === 'search' && !state.webSearch) {
-    state.webSearch = true;
-    $('opt-websearch').classList.add('active');
-  } else if (mode !== 'search' && state.webSearch) {
-    // leave it as is — user may have enabled manually
-  }
-
-  // Code mode model hint
-  if (mode === 'code' && !state.model.includes('codex')) {
-    // suggest codex
-    showToast('Tip: Switch to a Codex model for best code results');
-  }
-
-  $('user-input').focus();
-}
-
-// ── Handle send ────────────────────────────
-async function handleSend() {
-  const text = $('user-input').value.trim();
-  if (!text && state.attachedImages.length === 0) return;
-  if (state.busy) return;
-
-  hideWelcome();
-  state.busy = true;
-  $('send-btn').disabled = true;
-  $('user-input').value = '';
-  autoResizeTextarea();
-  $('char-count').style.opacity = '0';
-
-  const userText = text || '(Image attached for analysis)';
-
-  // Add user message
-  addUserMessage(userText, state.attachedImages);
-
-  // Add to history
-  const userMsg = buildUserMsg(text, state.attachedImages);
-  state.history.push(userMsg);
-
-  // Clear images after sending (analyze mode)
-  const imgs = [...state.attachedImages];
-  state.attachedImages = [];
-  $('img-preview-strip').innerHTML = '';
-  $('img-preview-strip').classList.remove('show');
-
-  // Dispatch to handler
-  try {
-    switch (state.mode) {
-      case 'image': await handleImageGeneration(userText); break;
-      case 'tts':   await handleTTS(userText); break;
-      default:      await handleChat(userText, imgs); break;
-    }
-  } catch (err) {
-    addErrorMessage(err.message || 'Something went wrong. Please try again.');
-  }
-
-  state.busy = false;
-  $('send-btn').disabled = false;
-  saveSession();
-}
-
-// ── Build user msg for Puter ───────────────
-function buildUserMsg(text, images) {
-  if (images.length === 0) return { role: 'user', content: text };
-  const content = [];
-  if (text) content.push({ type: 'text', text });
-  images.forEach(img => {
-    content.push({ type: 'image_url', image_url: { url: img.dataUrl } });
-  });
-  return { role: 'user', content };
-}
-
-// ── Chat handler ───────────────────────────
-async function handleChat(text, images) {
-  const typingId = addTypingIndicator();
-
-  // Build system prompt based on mode
-  let systemPrompt = 'You are NexusAI, a helpful, intelligent, and concise assistant. Format responses with markdown when useful. For code, always use fenced code blocks with language tags.';
-  if (state.mode === 'code') systemPrompt = 'You are NexusAI, an expert coding assistant. Always write clean, well-commented, production-ready code. Use fenced code blocks with the correct language identifier.';
-  if (state.mode === 'analyze') systemPrompt = 'You are NexusAI, an expert visual analyst. Analyze images in detail, describe what you see accurately and helpfully.';
-  if (state.mode === 'search') systemPrompt = 'You are NexusAI with live web search access. Always cite sources and provide up-to-date information from your search results.';
-
-  const messages = [{ role: 'system', content: systemPrompt }, ...state.history];
-
-  const opts = {
-    model: state.model,
-    stream: state.stream,
-  };
-
-  if (state.webSearch || state.mode === 'search') {
-    opts.tools = [{ type: 'web_search' }];
-  }
-
-  removeTypingIndicator(typingId);
-  const msgId = addAIMessageShell();
-
-  try {
-    if (state.stream) {
-      const response = await puter.ai.chat(messages, opts);
       let full = '';
       for await (const part of response) {
         if (part?.text) {
           full += part.text;
-          updateAIMessage(msgId, full);
+          aiEl.textContent = full;
+          scrollDown();
         }
       }
-      state.history.push({ role: 'assistant', content: full });
-      if (state.autoSpeak) speakText(full);
-    } else {
-      const response = await puter.ai.chat(messages, opts);
-      const full = typeof response === 'string' ? response : response?.message?.content || '';
-      updateAIMessage(msgId, full);
-      state.history.push({ role: 'assistant', content: full });
-      if (state.autoSpeak) speakText(full);
+    } catch (err) {
+      typingEl.remove();
+      addMsg('ai', '⚠️ Error: ' + (err.message || 'Something went wrong.'));
     }
-  } catch (err) {
-    removeTypingIndicator(typingId);
-    addErrorMessage(err.message || 'Chat failed.');
-    throw err;
+
+    sendBtn.disabled = false;
+    input.focus();
+    scrollDown();
   }
 
-  highlightCode();
-  addCopyCodeButtons();
-  scrollBottom();
-}
+  function addMsg(role, text) {
+    const msg = document.createElement('div');
+    msg.className = 'msg ' + role;
 
-// ── Image generation ───────────────────────
-async function handleImageGeneration(prompt) {
-  const typingId = addTypingIndicator();
-  try {
-    const model = $('img-model-select').value;
-    const size = $('img-size-select').value;
-    const opts = { model };
-    if (size) opts.size = size;
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = role === 'ai' ? 'AI' : 'Me';
 
-    const imgEl = await puter.ai.txt2img(prompt, opts);
-    removeTypingIndicator(typingId);
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
 
-    const src = imgEl.src;
-    const wrapper = document.createElement('div');
-    wrapper.className = 'msg-wrapper';
-    wrapper.innerHTML = `
-      <div class="msg-row ai">
-        <div class="avatar ai"><span class="material-icons-round">auto_awesome</span></div>
-        <div>
-          <div class="img-result">
-            <img src="${src}" alt="Generated: ${escHtml(prompt)}" loading="lazy">
-            <div class="img-actions">
-              <button class="img-action-btn" onclick="downloadImg('${src}', 'nexusai-image.png')">
-                <span class="material-icons-round">download</span> Download
-              </button>
-              <button class="img-action-btn" onclick="copyImgUrl('${src}')">
-                <span class="material-icons-round">link</span> Copy URL
-              </button>
-            </div>
-          </div>
+    msg.appendChild(avatar);
+    msg.appendChild(bubble);
+    messages.appendChild(msg);
+    scrollDown();
+    return bubble;
+  }
+
+  function addTyping() {
+    const msg = document.createElement('div');
+    msg.className = 'msg ai';
+    msg.innerHTML = `
+      <div class="avatar">AI</div>
+      <div class="bubble">
+        <div class="typing">
+          <span></span><span></span><span></span>
         </div>
-      </div>
-    `;
-    $('chat-inner').appendChild(wrapper);
-    addMsgActions(wrapper, `Generated image for: "${prompt}"`);
-    scrollBottom();
-    state.history.push({ role: 'assistant', content: `[Image generated for: "${prompt}"]` });
-  } catch (err) {
-    removeTypingIndicator(typingId);
-    addErrorMessage('Image generation failed: ' + (err.message || 'Unknown error'));
-    throw err;
+      </div>`;
+    messages.appendChild(msg);
+    scrollDown();
+    return msg;
   }
-}
 
-// ── TTS ────────────────────────────────────
-async function handleTTS(text) {
-  const typingId = addTypingIndicator();
-  try {
-    const voice = $('tts-voice-select').value;
-    const model = $('tts-model-select').value;
-    const audio = await puter.ai.txt2speech(text, { provider: 'openai', voice, model });
-    audio.setAttribute('controls', '');
-
-    removeTypingIndicator(typingId);
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'msg-wrapper';
-    const ttsDiv = document.createElement('div');
-    ttsDiv.className = 'msg-row ai';
-    ttsDiv.innerHTML = `
-      <div class="avatar ai"><span class="material-icons-round">auto_awesome</span></div>
-      <div>
-        <div class="tts-container">
-          <div class="tts-icon"><span class="material-icons-round">graphic_eq</span></div>
-          <div style="flex:1"></div>
-        </div>
-        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Voice: ${voice} · Model: ${model}</div>
-      </div>
-    `;
-    wrapper.appendChild(ttsDiv);
-    ttsDiv.querySelector('.tts-container div[style]').before(audio);
-    ttsDiv.querySelector('.tts-container').insertBefore(audio, ttsDiv.querySelector('.tts-container div[style="flex:1"]'));
-    $('chat-inner').appendChild(wrapper);
-    scrollBottom();
-    state.history.push({ role: 'assistant', content: `[TTS generated for: "${text.substring(0,80)}..."]` });
-  } catch (err) {
-    removeTypingIndicator(typingId);
-    addErrorMessage('TTS failed: ' + (err.message || 'Unknown error'));
-    throw err;
+  function scrollDown() {
+    messages.scrollTop = messages.scrollHeight;
   }
-}
-
-// ── Auto-speak ─────────────────────────────
-async function speakText(text) {
-  try {
-    const clean = text.replace(/#+\s|[*_`>]/g, '').trim().substring(0, 500);
-    const audio = await puter.ai.txt2speech(clean, { provider: 'openai' });
-    audio.play();
-  } catch (e) { /* silent */ }
-}
-
-// ── Mic input ──────────────────────────────
-function handleMicInput() {
-  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-    showToast('Speech recognition not supported in this browser'); return;
-  }
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const rec = new SR();
-  rec.lang = 'en-US';
-  rec.interimResults = false;
-  $('mic-btn').querySelector('.material-icons-round').textContent = 'mic_none';
-  $('mic-btn').style.color = 'var(--danger)';
-  rec.onresult = e => {
-    $('user-input').value = e.results[0][0].transcript;
-    autoResizeTextarea();
-    $('user-input').focus();
-  };
-  rec.onend = () => {
-    $('mic-btn').querySelector('.material-icons-round').textContent = 'mic';
-    $('mic-btn').style.color = '';
-  };
-  rec.start();
-}
-
-// ── Image file handling ────────────────────
-function handleImageFiles(e) {
-  const files = e.target.files;
-  if (!files || !files.length) return;
-  Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const dataUrl = ev.target.result;
-      const base64 = dataUrl.split(',')[1];
-      state.attachedImages.push({ dataUrl, base64, mimeType: file.type });
-      // Preview
-      const strip = $('img-preview-strip');
-      strip.classList.add('show');
-      const thumb = document.createElement('div');
-      thumb.className = 'img-preview-thumb';
-      const idx = state.attachedImages.length - 1;
-      thumb.innerHTML = `<img src="${dataUrl}" alt="preview"><button class="remove-img" data-idx="${idx}">✕</button>`;
-      thumb.querySelector('.remove-img').addEventListener('click', () => {
-        state.attachedImages.splice(idx, 1);
-        thumb.remove();
-        if (!state.attachedImages.length) strip.classList.remove('show');
-      });
-      strip.appendChild(thumb);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-// ── Message rendering ──────────────────────
-function addUserMessage(text, images) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'msg-wrapper';
-  let imgHtml = '';
-  if (images.length > 0) {
-    imgHtml = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">` +
-      images.map(img => `<img src="${img.dataUrl}" style="max-width:120px;max-height:120px;border-radius:8px;border:1px solid var(--border)">`).join('') +
-      `</div>`;
-  }
-  wrapper.innerHTML = `
-    <div class="msg-row user">
-      <div class="avatar user">Me</div>
-      <div class="msg-bubble">
-        ${imgHtml}
-        ${escHtml(text).replace(/\n/g, '<br>')}
-      </div>
-    </div>
-  `;
-  $('chat-inner').appendChild(wrapper);
-  scrollBottom();
-}
-
-function addTypingIndicator() {
-  const id = 'typing-' + Date.now();
-  const wrapper = document.createElement('div');
-  wrapper.className = 'msg-wrapper';
-  wrapper.id = id;
-  wrapper.innerHTML = `
-    <div class="msg-row ai">
-      <div class="avatar ai"><span class="material-icons-round">auto_awesome</span></div>
-      <div class="msg-bubble">
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-        <span class="typing-dot"></span>
-      </div>
-    </div>
-  `;
-  $('chat-inner').appendChild(wrapper);
-  scrollBottom();
-  return id;
-}
-
-function removeTypingIndicator(id) {
-  const el = $(id);
-  if (el) el.remove();
-}
-
-function addAIMessageShell() {
-  const id = 'ai-msg-' + Date.now();
-  const wrapper = document.createElement('div');
-  wrapper.className = 'msg-wrapper';
-  wrapper.id = id;
-  wrapper.innerHTML = `
-    <div class="msg-row ai">
-      <div class="avatar ai"><span class="material-icons-round">auto_awesome</span></div>
-      <div class="msg-bubble ai-content"></div>
-    </div>
-    <div class="msg-actions">
-      <button class="msg-action-btn copy-msg-btn"><span class="material-icons-round">content_copy</span> Copy</button>
-      <button class="msg-action-btn speak-msg-btn"><span class="material-icons-round">volume_up</span> Speak</button>
-    </div>
-  `;
-  $('chat-inner').appendChild(wrapper);
-
-  wrapper.querySelector('.copy-msg-btn').addEventListener('click', () => {
-    const txt = wrapper.querySelector('.ai-content').innerText;
-    navigator.clipboard.writeText(txt);
-    showToast('Copied!');
-  });
-
-  wrapper.querySelector('.speak-msg-btn').addEventListener('click', () => {
-    const txt = wrapper.querySelector('.ai-content').innerText;
-    speakText(txt);
-  });
-
-  return id;
-}
-
-function updateAIMessage(id, markdown) {
-  const el = $(id);
-  if (!el) return;
-  const bubble = el.querySelector('.ai-content');
-  bubble.innerHTML = parseMarkdown(markdown);
-  scrollBottom();
-}
-
-function addErrorMessage(msg) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'msg-wrapper';
-  wrapper.innerHTML = `
-    <div class="msg-row ai">
-      <div class="avatar ai" style="background:var(--danger)"><span class="material-icons-round">error</span></div>
-      <div class="error-bubble">
-        <span class="material-icons-round">warning</span>
-        ${escHtml(msg)}
-      </div>
-    </div>
-  `;
-  $('chat-inner').appendChild(wrapper);
-  scrollBottom();
-}
-
-function addMsgActions(wrapper, content) {
-  const actions = document.createElement('div');
-  actions.className = 'msg-actions';
-  actions.innerHTML = `<button class="msg-action-btn"><span class="material-icons-round">content_copy</span> Copy URL</button>`;
-  wrapper.appendChild(actions);
-  actions.querySelector('button').addEventListener('click', () => {
-    navigator.clipboard.writeText(content);
-    showToast('Copied!');
-  });
-}
-
-// ── Markdown parsing ───────────────────────
-function parseMarkdown(md) {
-  if (!md) return '';
-  marked.setOptions({ breaks: true, gfm: true });
-  return marked.parse(md);
-}
-
-// ── Highlight code ─────────────────────────
-function highlightCode() {
-  document.querySelectorAll('.ai-content pre code').forEach(el => {
-    if (!el.classList.contains('hljs')) hljs.highlightElement(el);
-  });
-}
-
-function addCopyCodeButtons() {
-  document.querySelectorAll('.ai-content pre').forEach(pre => {
-    if (pre.querySelector('.copy-code-btn')) return;
-    const btn = document.createElement('button');
-    btn.className = 'copy-code-btn';
-    btn.innerHTML = `<span class="material-icons-round">content_copy</span> Copy`;
-    btn.addEventListener('click', () => {
-      navigator.clipboard.writeText(pre.querySelector('code').innerText);
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.innerHTML = `<span class="material-icons-round">content_copy</span> Copy`; }, 2000);
-    });
-    pre.style.position = 'relative';
-    pre.appendChild(btn);
-  });
-}
-
-// ── Helpers ────────────────────────────────
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function scrollBottom() {
-  const area = $('chat-area');
-  requestAnimationFrame(() => area.scrollTop = area.scrollHeight);
-}
-
-function hideWelcome() {
-  const w = $('welcome');
-  if (w) { w.style.display = 'none'; }
-}
-
-function autoResizeTextarea() {
-  const ta = $('user-input');
-  ta.style.height = 'auto';
-  ta.style.height = Math.min(ta.scrollHeight, 180) + 'px';
-}
-
-// ── Toast ──────────────────────────────────
-let toastTimer;
-function showToast(msg) {
-  $('toast-text').textContent = msg;
-  $('toast').classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => $('toast').classList.remove('show'), 2500);
-}
-
-// ── Model panel ────────────────────────────
-function closeModelPanel() { $('model-panel').classList.remove('show'); }
-
-// ── Sidebar ────────────────────────────────
-function toggleSidebar() {
-  const s = $('sidebar'), o = $('sidebar-overlay');
-  s.classList.toggle('open');
-  o.classList.toggle('show');
-}
-
-function closeSidebar() {
-  $('sidebar').classList.remove('open');
-  $('sidebar-overlay').classList.remove('show');
-}
-
-// ── New chat ───────────────────────────────
-function newChat() {
-  saveSession();
-  state.history = [];
-  state.attachedImages = [];
-  const inner = $('chat-inner');
-  while (inner.firstChild) inner.removeChild(inner.firstChild);
-  // Re-add welcome
-  const w = document.createElement('div');
-  w.id = 'welcome-inner';
-  w.innerHTML = `<div id="welcome">
-    <div class="welcome-icon"><span class="material-icons-round">auto_awesome</span></div>
-    <h1 class="welcome-title">What can I help you with?</h1>
-    <p class="welcome-sub">Powered by Puter.js — free, unlimited access to OpenAI's latest models.</p>
-  </div>`;
-  inner.appendChild(w);
-  $('img-preview-strip').innerHTML = '';
-  $('img-preview-strip').classList.remove('show');
-  setMode('chat');
-  closeSidebar();
-}
-
-// ── Clear chat ─────────────────────────────
-function clearChat() {
-  state.history = [];
-  const inner = $('chat-inner');
-  while (inner.firstChild) inner.removeChild(inner.firstChild);
-  showToast('Chat cleared');
-}
-
-// ── Export chat ────────────────────────────
-function exportChat() {
-  const msgs = state.history.map(m => {
-    const role = m.role === 'user' ? 'You' : 'NexusAI';
-    const text = typeof m.content === 'string' ? m.content : JSON.stringify(m.content);
-    return `**${role}:**\n${text}`;
-  }).join('\n\n---\n\n');
-
-  const blob = new Blob([`# NexusAI Chat Export\n\n${msgs}`], { type: 'text/markdown' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `nexusai-chat-${Date.now()}.md`;
-  a.click();
-  showToast('Chat exported!');
-}
-
-// ── Sessions (localStorage) ────────────────
-function saveSession() {
-  if (!state.history.length) return;
-  try {
-    const key = 'nexusai_session_' + Date.now();
-    const first = state.history.find(m => m.role === 'user');
-    const title = first ? (typeof first.content === 'string' ? first.content : 'Session').substring(0, 40) : 'Session';
-    const sessions = JSON.parse(localStorage.getItem('nexusai_sessions') || '[]');
-    sessions.unshift({ key, title, ts: Date.now(), history: state.history.slice(-20) });
-    localStorage.setItem('nexusai_sessions', JSON.stringify(sessions.slice(0, 20)));
-    renderHistory();
-  } catch (e) { /* ignore */ }
-}
-
-function loadSessions() {
-  try {
-    state.sessions = JSON.parse(localStorage.getItem('nexusai_sessions') || '[]');
-    renderHistory();
-  } catch (e) { state.sessions = []; }
-}
-
-function renderHistory() {
-  const list = $('history-list');
-  list.innerHTML = '';
-  try {
-    const sessions = JSON.parse(localStorage.getItem('nexusai_sessions') || '[]');
-    sessions.forEach((s, i) => {
-      const el = document.createElement('div');
-      el.className = 'history-item';
-      el.innerHTML = `<span class="material-icons-round">chat</span><span class="history-title">${escHtml(s.title)}</span>`;
-      el.addEventListener('click', () => loadSessionHistory(s));
-      list.appendChild(el);
-    });
-  } catch (e) {}
-}
-
-function loadSessionHistory(s) {
-  state.history = s.history || [];
-  clearChat();
-  const inner = $('chat-inner');
-  // replay messages
-  state.history.forEach(m => {
-    if (m.role === 'user') {
-      const text = typeof m.content === 'string' ? m.content : '(message)';
-      addUserMessage(text, []);
-    } else if (m.role === 'assistant') {
-      const text = typeof m.content === 'string' ? m.content : '';
-      const id = addAIMessageShell();
-      updateAIMessage(id, text);
-    }
-  });
-  highlightCode();
-  addCopyCodeButtons();
-  closeSidebar();
-  hideWelcome();
-}
-
-// ── Image download ─────────────────────────
-async function downloadImg(src, name) {
-  try {
-    const resp = await fetch(src);
-    const blob = await resp.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = name; a.click();
-    URL.revokeObjectURL(url);
-    showToast('Image downloaded!');
-  } catch (e) { showToast('Download failed'); }
-}
-
-function copyImgUrl(src) {
-  navigator.clipboard.writeText(src);
-  showToast('URL copied!');
-}
 </script>
 </body>
 </html>
