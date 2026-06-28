@@ -31,7 +31,7 @@
 - 🤖 &nbsp;Creating smart workflows with **Zapier** & **Make.com**
 - 🏢 &nbsp;Running **[The Bit Forge](https://thebitforge.dev)** — my web agency
 - ✍️ &nbsp;Writing web dev articles at **[dev.to/hanzla](https://dev.to/hanzla)**
-- 📍 &nbsp;Based in **Karachi, Pakistan**
+- 📍 &nbsp;Based in **Chichawatni, Pakistan**
 - 💬 &nbsp;Ask me about **HTML, CSS, JS, Bootstrap, WordPress, GSAP**
 - 📫 &nbsp;Reach me at **hanzlabaig.real@gmail.com**
 -  🏢 &nbsp;My **[Previous Github Profile](https://github.com/wecoded-dev)**
@@ -198,6 +198,6 @@ Need a stunning site, a WooCommerce store, or a smart Zapier/Make automation? Le
 <!-- Footer -->
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=12&height=120&section=footer&animation=fadeIn" width="100%" />
-  <p><strong>Crafted with ❤️ by <a href="https://hanzla-beig.vercel.app">Hanzla Baig</a> — Karachi, Pakistan 🇵🇰</strong></p>
+  <p><strong>Crafted with ❤️ by <a href="https://hanzla-beig.vercel.app">Hanzla Baig</a> — Chichawatni, Pakistan 🇵🇰</strong></p>
   <p><em>"Building the web, one pixel at a time."</em></p>
 </div>
