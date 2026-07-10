@@ -168,10 +168,9 @@
 
 ---
 
-## ✍️ Latest Blog Posts
 
+## 📝 Latest Blog Posts
 <!-- BLOG-POST-LIST:START -->
-> 📡 Auto-updated via GitHub Actions · Read all posts at **[dev.to/hanzla](https://dev.to/hanzla)**
 <!-- BLOG-POST-LIST:END -->
 
 ---
