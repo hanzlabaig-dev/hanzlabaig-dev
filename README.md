@@ -63,7 +63,18 @@
    ## 🚀 My Repositories
 
    <!-- PROJECTS-LIST:START -->
-   <!-- PROJECTS-LIST:END -->
+| Project | Description | Language | Stars |
+|---|---|---|---|
+| [Target-Human](https://github.com/hanzlabaig-dev/Target-Human) | Real-time face recognition & tracking tool using InsightFace + OpenCV — enrolls people from photos, locks onto and auto-photographs matches in live camera feeds, even at a distance or in crowds. | Python | ⭐ 0 |
+| [Controlled-Web-AI-Agent](https://github.com/hanzlabaig-dev/Controlled-Web-AI-Agent) | Controlled Web AI Agent V2 — A Python tool-calling AI agent for web research, website security analysis, file management, and approved terminal commands, with built-in SSRF protection, domain locking, human approval gates, and safety controls. | Python | ⭐ 1 |
+| [ai-web-agent](https://github.com/hanzlabaig-dev/ai-web-agent) | Educational LLM agent framework for authorized security inspection of a single website you own. Domain-locked, human-approved, Python-enforced. | Python | ⭐ 0 |
+| [aicli](https://github.com/hanzlabaig-dev/aicli) | A production-quality terminal-based AI Coding CLI supporting OpenRouter, Anthropic, OpenAI, Gemini and Ollama | TypeScript | ⭐ 2 |
+| [handtracker](https://github.com/hanzlabaig-dev/handtracker) | No description yet | HTML | ⭐ 0 |
+| [screencast](https://github.com/hanzlabaig-dev/screencast) | No description yet | JavaScript | ⭐ 0 |
+| [blog-platform](https://github.com/hanzlabaig-dev/blog-platform) | No description yet | TypeScript | ⭐ 0 |
+| [portfolio](https://github.com/hanzlabaig-dev/portfolio) | No description yet | - | ⭐ 0 |
+| [chatbot](https://github.com/hanzlabaig-dev/chatbot) | No description yet | - | ⭐ 0 |
+<!-- PROJECTS-LIST:END -->
 
 ---
 
