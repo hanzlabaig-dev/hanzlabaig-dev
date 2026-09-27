@@ -65,6 +65,7 @@
    <!-- PROJECTS-LIST:START -->
 | Project | Description | Language | Stars |
 |---|---|---|---|
+| [dev-rank](https://github.com/hanzlabaig-dev/dev-rank) | No description yet | Python | ⭐ 0 |
 | [Target-Human](https://github.com/hanzlabaig-dev/Target-Human) | Real-time face recognition & tracking tool using InsightFace + OpenCV — enrolls people from photos, locks onto and auto-photographs matches in live camera feeds, even at a distance or in crowds. | Python | ⭐ 0 |
 | [Controlled-Web-AI-Agent](https://github.com/hanzlabaig-dev/Controlled-Web-AI-Agent) | Controlled Web AI Agent V2 — A Python tool-calling AI agent for web research, website security analysis, file management, and approved terminal commands, with built-in SSRF protection, domain locking, human approval gates, and safety controls. | Python | ⭐ 1 |
 | [ai-web-agent](https://github.com/hanzlabaig-dev/ai-web-agent) | Educational LLM agent framework for authorized security inspection of a single website you own. Domain-locked, human-approved, Python-enforced. | Python | ⭐ 0 |
