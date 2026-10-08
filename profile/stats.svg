@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Hanzla Baig&#39;s GitHub Stats, Rank: C+</title>
-        <desc id="descId">Total Stars Earned: 4, Total Commits  (last year) : 54, Total PRs: 3, Total Issues: 0, Contributed to (last year): 2</desc>
+        <desc id="descId">Total Stars Earned: 4, Total Commits  (last year) : 54, Total PRs: 3, Total Issues: 8, Contributed to (last year): 3</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 219.40481453581722;
+        stroke-dashoffset: 215.2384317948695;
       }
     }
   
@@ -214,7 +214,7 @@
         x="224.01"
         y="12.5"
         data-testid="issues"
-      >0</text>
+      >8</text>
     </g>
   </g><g transform="translate(0, 100)">
     <g class="stagger" style="animation-delay: 1050ms" transform="translate(25, 0)">
@@ -229,7 +229,7 @@
         x="224.01"
         y="12.5"
         data-testid="contribs"
-      >2</text>
+      >3</text>
     </g>
   </g>
     </svg>
