@@ -7,7 +7,7 @@ I'm a developer, open-source contributor, and builder who loves turning ideas in
 - 🌱 Exploring AI, automation, and emerging technologies.
 - 🔓 Contributing to open-source projects and developer communities.
 - 🛠️ Building projects, experimenting with ideas, and learning by doing.
-<!-- - ☕ Building **The Startup Café**, a community-driven platform for startup founders and builders. -->
+- ☕ Building **The Startup Café**, a community-driven platform for startup founders and builders. 
 - 🤝 Always interested in collaborating with developers and open-source enthusiasts.
 
 ### 🌍 Open Source & Community
