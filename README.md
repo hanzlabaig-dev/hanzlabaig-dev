@@ -23,7 +23,7 @@ I'm a developer, open-source contributor, and builder who loves turning ideas in
 ### 📫 Connect With Me
 - **GitHub:** [@hanzlabaig-dev](https://github.com/hanzlabaig-dev)
 - **DEV Community:** [@hanzla](https://dev.to/hanzla)
-- **X (Twitter):** [@thebitforge_dev](https://x.com/thebitforge_dev)
+- **X (Twitter):** [@hanzlabaig_dev](https://x.com/hanzlabaig_dev)
 - **Email:** [hanzlabaig.real@gmail.com](mailto:hanzlabaig.real@gmail.com)
 
 ---
