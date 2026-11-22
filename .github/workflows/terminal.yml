@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: hanzlabaig-dev/gh-trading-terminal@v1
         with:
-          days: 90
+          days: 365
           theme: tradingview
           token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
