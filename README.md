@@ -26,6 +26,11 @@ I'm a developer, open-source contributor, and builder who loves turning ideas in
 - **X (Twitter):** [@hanzlabaig_dev](https://x.com/hanzlabaig_dev)
 - **Email:** [hanzlabaig.real@gmail.com](mailto:hanzlabaig.real@gmail.com)
 
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="assets/terminal-light.svg">
+  <img src="assets/terminal-dark.svg" width="100%" alt="GitHub contribution trading terminal">
+</picture>
+
 ---
 
 *Building things, contributing to open source, and learning something new every day.* 🚀
